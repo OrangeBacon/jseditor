@@ -13,26 +13,29 @@ var webpackConfig = require('./webpack.prod.conf')
 
 var spinner = ora('building for production...')
 spinner.start()
-fse.copy(config.build.serverRoot, path.join(config.build.assetsRoot,config.build.serverSubDirectory), err => {
+fse.copy(config.build.deployRoot, path.join(config.build.assetsRoot, config.build.deploySubDirectory), err => {
   if (err) throw err;
-  rm(path.join(config.build.assetsRoot, config.build.assetsSubDirectory), err => {
-    if (err) throw err
-    webpack(webpackConfig, function(err, stats) {
-      spinner.stop()
+  fse.copy(config.build.serverRoot, path.join(config.build.assetsRoot, config.build.serverSubDirectory), err => {
+    if (err) throw err;
+    rm(path.join(config.build.assetsRoot, config.build.assetsSubDirectory), err => {
       if (err) throw err
-      process.stdout.write(stats.toString({
-        colors: true,
-        modules: false,
-        children: false,
-        chunks: false,
-        chunkModules: false
-      }) + '\n\n')
+      webpack(webpackConfig, function(err, stats) {
+        spinner.stop()
+        if (err) throw err
+        process.stdout.write(stats.toString({
+          colors: true,
+          modules: false,
+          children: false,
+          chunks: false,
+          chunkModules: false
+        }) + '\n\n')
 
-      console.log(chalk.cyan('  Build complete.\n'))
-      console.log(chalk.yellow(
-        '  Tip: built files are meant to be served over an HTTP server.\n' +
-        '  Opening index.html over file:// won\'t work.\n'
-      ))
+        console.log(chalk.cyan('  Build complete.\n'))
+        console.log(chalk.yellow(
+          '  Tip: built files are meant to be served over an HTTP server.\n' +
+          '  Opening index.html over file:// won\'t work.\n'
+        ))
+      })
     })
   })
 })

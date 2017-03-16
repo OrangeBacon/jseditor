@@ -22,7 +22,10 @@ module.exports = {
     bundleAnalyzerReport: process.env.npm_config_report,
     //directory for server
     serverRoot: path.resolve(__dirname, '../server'),
-    serverSubDirectory: 'server'
+    serverSubDirectory: 'server',
+    //directory for non server build files
+    deployRoot: path.resolve(__dirname, '../deploy'),
+    deploySubDirectory: '/'
   },
   dev: {
     env: require('./dev.env'),
