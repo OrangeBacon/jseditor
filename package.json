@@ -9,11 +9,12 @@
     "build": "node build/build.js",
     "lint": "eslint --ext .js,.vue src",
     "deploy": "git subtree push --prefix dist heroku master",
-    "distserve": "npm run build && cd dist && npm start"
+    "distserve": "npm run build && cd dist && npm i && npm start"
   },
   "dependencies": {
     "vue": "^2.2.2",
-    "vue-router": "^2.2.0"
+    "vue-router": "^2.2.0",
+    "vuex": "^2.2.1"
   },
   "devDependencies": {
     "autoprefixer": "^6.7.2",
@@ -60,7 +61,7 @@
     "webpack-merge": "^2.6.1"
   },
   "engines": {
-    "node": ">= 4.0.0",
+    "node": ">= 6.0.0",
     "npm": ">= 3.0.0"
   },
   "browserslist": [
